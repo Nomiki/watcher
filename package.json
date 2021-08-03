@@ -1,0 +1,22 @@
+{
+  "name": "watcher",
+  "version": "1.0.0",
+  "description": "Watching changes and rebuilding stuff",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nomiki/watcher.git"
+  },
+  "author": "Nomiki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nomiki/watcher/issues"
+  },
+  "homepage": "https://github.com/Nomiki/watcher#readme",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
