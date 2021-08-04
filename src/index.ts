@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-import EventEmitter from 'events';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+import { ArgFactory } from './core/argFactory';
 import { FileWatcher } from './core/fileWatcher';
-import { DotnetCoreRunner } from './dotnetcore/dotnetCoreRunner';
+import { IRunner } from './interfaces/iRunner';
 
 setInterval(() => {}, 1 << 30);
 process.on('SIGINT', (code) => {
@@ -13,15 +11,9 @@ process.on('SIGINT', (code) => {
 });
 
 console.log('hello');
-
-// const argv = yargs(hideBin(process.argv)).command(
-//     'watch',
-//     'watch the file changes'
-// );
-
-// argv.showHelp();
-
-const dirName = 'd:\\/dev/Playground/Sample';
-const dotnetRunner = new DotnetCoreRunner();
-const fw = new FileWatcher(dirName, dotnetRunner);
-fw.watch();
+const yargs = ArgFactory.getYargs();
+if (yargs.argv) {
+} else {
+    yargs.showHelp();
+    process.exit(-1);
+}

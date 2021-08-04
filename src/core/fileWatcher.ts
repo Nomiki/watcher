@@ -1,4 +1,5 @@
 import chokidar from 'chokidar';
+import { IConfiguration } from '../interfaces/iConfiguration';
 import { IRunner } from '../interfaces/iRunner';
 
 export interface IFileWatcher {
@@ -9,14 +10,18 @@ export interface IFileWatcher {
 export class FileWatcher implements IFileWatcher {
     private isReady: boolean = false;
 
-    constructor(private dirName: string, private runner: IRunner) {
+    constructor(
+        private dirName: string,
+        private configuration: IConfiguration,
+        private runner: IRunner
+    ) {
         this.runner = runner;
-        this.runner.find(this.dirName, (foundFile) => {
-            this.isReady = foundFile;
-        });
+        this.configuration = runner?.getConfiguration() || this.configuration;
+        this.isReady = true;
     }
 
     watch(): void {
+        console.log('System started watching files...');
         const watcher = chokidar.watch(this.dirName, {
             ignored: /^\./,
             persistent: true,
@@ -31,9 +36,12 @@ export class FileWatcher implements IFileWatcher {
 
     isWatchableFile(file: string): boolean {
         const fileLowerCase = file.toLowerCase();
-        return this.runner.extensionsToWatch.some((x) =>
-            fileLowerCase.endsWith(`.${x}`)
-        );
+        const isWatchable =
+            this.configuration.extensionsToWatch?.some((x) =>
+                fileLowerCase.endsWith(`.${x}`)
+            ) || false;
+
+        return isWatchable;
     }
 
     private onFileAdded(path: string): void {
@@ -54,7 +62,7 @@ export class FileWatcher implements IFileWatcher {
     private runRunnerIfNeeded(path: string) {
         if (this.isReady && this.isWatchableFile(path)) {
             console.log(`file ${path} is also watchable!`);
-            this.runner.run();
+            this.runner?.run();
         }
     }
 }
