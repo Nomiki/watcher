@@ -65,7 +65,7 @@ export class DotnetCoreRunner implements IRunner {
 
     registerYargsCommand(argv: yargs.Argv<{}>): yargs.Argv<{}> {
         return argv.command({
-            command: 'dotnetcore',
+            command: ['dotnet', 'dotnetcore'],
             describe: 'watch dotnet core app',
             builder: (y) => {
                 return y.option('csproj', {
