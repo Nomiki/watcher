@@ -1,10 +1,10 @@
 {
-    "name": "watcher",
+    "name": "argus",
     "version": "1.0.0",
     "description": "Watching changes and rebuilding stuff",
     "main": "./lib/index.js",
     "bin": {
-        "watcher": "./lib/index.js"
+        "argus": "./lib/index.js"
     },
     "scripts": {
         "start": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",

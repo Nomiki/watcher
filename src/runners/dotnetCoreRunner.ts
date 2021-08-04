@@ -72,6 +72,7 @@ export class DotnetCoreRunner implements IRunner {
                     alias: 'p',
                     describe: 'csproj file',
                     required: true,
+                    type: 'string',
                 });
             },
             handler: (argv) => {

@@ -8,7 +8,10 @@ export class ArgFactory {
     private static yargsArgv: yargs.Argv<{}>;
 
     public static getYargs() {
-        this.yargsArgv = yargs(hideBin(process.argv));
+        this.yargsArgv = yargs(hideBin(process.argv), 'argus')
+            .demandCommand(1)
+            .strict();
+
         const ctors = IRunner.getImplementations();
         for (const ctor of ctors) {
             const runner = new ctor();

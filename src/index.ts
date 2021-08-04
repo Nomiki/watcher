@@ -12,8 +12,8 @@ process.on('SIGINT', (code) => {
 
 console.log('hello');
 const yargs = ArgFactory.getYargs();
-if (yargs.argv) {
-} else {
-    yargs.showHelp();
-    process.exit(-1);
-}
+const argv = yargs.argv;
+console.log(argv);
+
+yargs.showHelp();
+process.exit(-1);
